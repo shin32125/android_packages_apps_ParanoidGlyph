@@ -30,7 +30,6 @@ import co.aospa.glyph.Services.ChargingService;
 import co.aospa.glyph.Services.FlipToGlyphService;
 import co.aospa.glyph.Services.MusicVisualizerService;
 import co.aospa.glyph.Services.NotificationService;
-import co.aospa.glyph.Services.PowershareService;
 
 public final class ServiceUtils {
 
@@ -99,18 +98,6 @@ public final class ServiceUtils {
                 UserHandle.CURRENT);
     }
 
-    private static void startPowershareService() {
-        if (DEBUG) Log.d(TAG, "Starting Glyph powershare service");
-        context.startServiceAsUser(new Intent(context, PowershareService.class),
-                UserHandle.CURRENT);
-    }
-
-    private static void stopPowershareService() {
-        if (DEBUG) Log.d(TAG, "Stopping Glyph powershare service");
-        context.stopServiceAsUser(new Intent(context, PowershareService.class),
-                UserHandle.CURRENT);
-    }
-
     public static void checkGlyphService() {
         if (SettingsManager.isGlyphEnabled()) {
             Constants.setBrightness(SettingsManager.getGlyphBrightness());
@@ -118,11 +105,6 @@ public final class ServiceUtils {
                 startChargingService();
             } else {
                 stopChargingService();
-            }
-            if (SettingsManager.isGlyphPowershareEnabled()) {
-                startPowershareService();
-            } else {
-                stopPowershareService();
             }
             if (SettingsManager.isGlyphCallEnabled()) {
                 startCallReceiverService();
@@ -146,7 +128,6 @@ public final class ServiceUtils {
             }
         } else {
             stopChargingService();
-            stopPowershareService();
             stopCallReceiverService();
             stopNotificationService();
             stopFlipToGlyphService();

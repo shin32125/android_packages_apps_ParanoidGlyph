@@ -56,7 +56,7 @@ public final class FileUtils {
 
     public static int readLineInt(String fileName) {
         try {
-            return Integer.parseInt(readLine(fileName).replace("0x", ""));
+            return Integer.parseInt(readLine(fileName));
         }
         catch (NumberFormatException e) {
             Log.e(TAG, "Could not convert string to int from file " + fileName, e);
